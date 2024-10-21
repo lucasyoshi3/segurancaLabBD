@@ -1,0 +1,75 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <h1>Projeto</h1>
+    <form th:action="@{/projeto}" th:object="${projeto}" method="post">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Id:</td>
+                    <td><input type="text" th:field="*{id}" /></td>
+                </tr>
+                <tr>
+                    <td>Nome:</td>
+                    <td><input type="text" th:field="*{nome}" /></td>
+                </tr>
+                <tr>
+                    <td>Data de Início:</td>
+                    <td><input type="date" th:field="*{dataInicio}" /></td>
+                </tr>
+                <tr>
+                    <td>Quantidade de Dias Estimados:</td>
+                    <td><input type="number" th:field="*{qtdDiasEstimado}" /></td>
+                </tr>
+                <tr>
+                    <td>Orçamento:</td>
+                    <td><input type="text" th:field="*{orcamento}" /></td>
+                </tr>
+                <tr>
+                    <td>Linguagem:</td>
+                    <td>
+                        <select th:field="*{linguagem}">
+                            <option th:each="linguagem : ${linguagens}" 
+                                    th:value="${linguagem}" 
+                                    th:text="${linguagem.id}">
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button type="submit" name="acao" value="manter">Manter</button></td>
+                    <td><button type="submit" name="acao" value="buscarTodos">Buscar Todos</button></td>
+                    <td><button type="submit" name="acao" value="buscarNome">Buscar Por Nome</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+
+    <h2>Lista de Projetos</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Data Início</th>
+                <th>Qtd. Dias Estimados</th>
+                <th>Orçamento</th>
+                <th>Linguagem</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="projeto : ${listaProjetos}">
+                <td th:text="${projeto.id}"></td>
+                <td th:text="${projeto.nome}"></td>
+                <td th:text="${projeto.dataInicio}"></td>
+                <td th:text="${projeto.qtdDiasEstimado}"></td>
+                <td th:text="${projeto.orcamento}"></td>
+                <td th:text="${projeto.linguagem.id}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
