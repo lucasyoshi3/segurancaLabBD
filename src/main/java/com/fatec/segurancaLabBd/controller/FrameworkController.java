@@ -52,13 +52,13 @@ public class FrameworkController {
         	mv.addObject("framework", framework); 
         }
 
-//        if (acao.equals("atualizarVersao")) {
-//            try {
-//                frameworkRepository.updateVersaoById(framework.getVersao(), framework.getId());
-//            } catch (DataAccessException ex) {
-//                resposta = "Erro ao atualizar versão: " + ex.getMessage();
-//            }
-//        }
+        if (acao.equals("atualizarVersao")) {
+            try {
+                frameworkRepository.updateVersaoById(framework.getVersao(), framework.getId());
+            } catch (DataAccessException ex) {
+                resposta = "Erro ao atualizar versão: " + ex.getMessage();
+            }
+        }
  
         mv.addObject("lista", lista); 
         mv.addObject("resposta", resposta); 
