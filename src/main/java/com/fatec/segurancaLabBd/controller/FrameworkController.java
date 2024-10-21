@@ -27,15 +27,17 @@ public class FrameworkController {
     public ModelAndView frameworkGet() {
         ModelAndView mv = new ModelAndView("Framework_form");
         mv.addObject("framework", new Framework());
-        mv.addObject("lista", lista); // Adicionando a lista ao GET, se necessário
+        mv.addObject("lista", lista); 
         return mv;
     }
 
     @RequestMapping(value = "/framework", method = RequestMethod.POST)
     public ModelAndView frameworkPost(@ModelAttribute("framework") Framework framework, 
                                        @RequestParam("acao") String acao) {
-        ModelAndView mv = new ModelAndView("Framework_form"); // Definindo a view de retorno
+        ModelAndView mv = new ModelAndView("Framework_form"); 
         String resposta = "";
+        
+        mv.addObject("framework", new Framework());
 
         if (acao.equals("manter")) {
             frameworkRepository.save(framework);
@@ -43,6 +45,11 @@ public class FrameworkController {
 
         if (acao.equals("buscarTodos")) {
             lista = (List<Framework>) frameworkRepository.findAll();
+        }
+        
+        if(acao.equals("buscarNome")) {
+        	framework = (Framework) frameworkRepository.findByLinguagemNome(framework.getNome());
+        	mv.addObject("framework", framework); 
         }
 
 //        if (acao.equals("atualizarVersao")) {
@@ -52,10 +59,9 @@ public class FrameworkController {
 //                resposta = "Erro ao atualizar versão: " + ex.getMessage();
 //            }
 //        }
-
-        mv.addObject("framework", new Framework()); // Resetar o formulário
-        mv.addObject("lista", lista); // Atualizar a lista na view
-        mv.addObject("resposta", resposta); // Passar a mensagem de resposta para a view
+ 
+        mv.addObject("lista", lista); 
+        mv.addObject("resposta", resposta); 
 
         return mv;
     }

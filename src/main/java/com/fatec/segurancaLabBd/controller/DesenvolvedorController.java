@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,17 +22,17 @@ public class DesenvolvedorController {
 	private List<Desenvolvedor> lista = new ArrayList<>();
 	private DesenvolvedorRepository desenvolvedorRepository;
 	
-	@GetMapping("/desenvolvedor/manter")
+	@RequestMapping(value = "/desenvolvedor", method = RequestMethod.GET)
 	public ModelAndView desenvolvedor(){
-		ModelAndView mv = new ModelAndView("desenvolvedor_form");
+		ModelAndView mv = new ModelAndView("Desenvolvedor_form");
 		mv.addObject("desenvolvedor", new Desenvolvedor());
 		
 		return mv;
 	}
 	
-	@PostMapping("/desenvolvedor/manter")
+	@RequestMapping(value = "/desenvolvedor", method = RequestMethod.POST)
 	public ModelAndView desenvolvedorCreate(@ModelAttribute("desenvolvedor") Desenvolvedor desenvolvedor, @RequestParam("acao") String acao) {
-		ModelAndView mv = new ModelAndView("desenvolvedor_form");
+		ModelAndView mv = new ModelAndView("Desenvolvedor_form");
 		String resposta = "Mantido com sucesso!";
 		if(acao.equals("manter")) {
 			try {
@@ -41,15 +43,6 @@ public class DesenvolvedorController {
 			}
 		}
 		
-		mv.addObject("desenvolvedor", new Desenvolvedor());
-		mv.addObject("resposta", resposta);
-		return mv;
-	}
-	
-	@PostMapping("/desenvolvedor/buscar")
-	public ModelAndView desenvolvedorRead(@ModelAttribute("desenvolvedor") Desenvolvedor desenvolvedor, @RequestParam("acao") String acao) {
-		ModelAndView mv = new ModelAndView("desenvolvedorBusca_form");
-		
 		if(acao.equals("buscaSenioridade")) {
 			lista = desenvolvedorRepository.findBySerionidade(desenvolvedor.getSerionidade());
 		}
@@ -59,8 +52,9 @@ public class DesenvolvedorController {
 		}
 		
 		mv.addObject("desenvolvedor", new Desenvolvedor());
+		mv.addObject("resposta", resposta);
 		mv.addObject("lista",lista);
-		
 		return mv;
 	}
+	
 }

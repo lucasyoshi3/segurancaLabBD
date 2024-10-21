@@ -32,4 +32,4 @@ public class Especialidade {
 				fetch = FetchType.LAZY)
 	@JoinColumn(name = "linguagemid", referencedColumnName = "id", nullable = false)
 	Linguagem linguagem;
-}
+}	
