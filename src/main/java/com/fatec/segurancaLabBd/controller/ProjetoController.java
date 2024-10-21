@@ -47,10 +47,10 @@ public class ProjetoController {
 			lista = projetoRepository.findByNome(projeto.getNome());
 		}
 		
-//		if(acao.equals("qtdAtrasados")) {
-//			int qtdProjetosAtrasados = projetoRepository.qtdProjetosAtrasados();
-//			mv.addObject("atrasado", qtdProjetosAtrasados);
-//		}
+		if(acao.equals("qtdAtrasados")) {
+			int qtdProjetosAtrasados = projetoRepository.qtdProjetosAtrasados();
+			mv.addObject("atrasado", qtdProjetosAtrasados);
+	        }
 		
 		mv.addObject("projeto", new Projeto());
 		mv.addObject("lista", lista);
